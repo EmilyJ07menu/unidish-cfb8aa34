@@ -1,7 +1,11 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { UserCircle2, Camera, ChevronRight } from "lucide-react";
+import { toast } from "sonner";
 import { AppHeader } from "@/components/AppHeader";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+
 
 export const Route = createFileRoute("/setup")({
   head: () => ({
@@ -45,13 +49,8 @@ function Setup() {
         <h1 className="mt-6 text-4xl">Set up your profile</h1>
         <p className="mt-2 text-lg text-muted-foreground">Pick a username and a profile picture</p>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            navigate({ to: "/" });
-          }}
-          className="mt-8 w-full rounded-2xl border border-border bg-card p-8"
-        >
+        <form onSubmit={save} className="mt-8 w-full rounded-2xl border border-border bg-card p-8">
+
           <div className="relative mx-auto w-fit">
             <div className="flex size-28 items-center justify-center rounded-full bg-muted text-muted-foreground">
               <UserCircle2 className="size-14" strokeWidth={1.5} />

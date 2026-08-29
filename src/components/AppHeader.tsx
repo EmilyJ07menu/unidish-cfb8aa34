@@ -1,5 +1,8 @@
-import { Link } from "@tanstack/react-router";
-import { Home, Sparkles, Bookmark, Refrigerator, CalendarDays, Plus } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Home, Sparkles, Bookmark, Refrigerator, CalendarDays, Plus, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+
 
 const links = [
   { to: "/", label: "Feed", icon: Home },

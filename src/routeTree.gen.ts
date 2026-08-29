@@ -15,7 +15,6 @@ import { Route as BudgetRouteImport } from './routes/budget'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as FridgeRouteImport } from './routes/fridge'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SetupRouteImport } from './routes/setup'
@@ -50,11 +49,6 @@ const FridgeRoute = FridgeRouteImport.update({
   path: '/fridge',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
@@ -78,7 +72,6 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
-  '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
   '/setup': typeof SetupRoute
@@ -90,7 +83,6 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
-  '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
   '/setup': typeof SetupRoute
@@ -103,7 +95,6 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
-  '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
   '/setup': typeof SetupRoute
@@ -117,7 +108,6 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/discover'
     | '/fridge'
-    | '/login'
     | '/onboarding'
     | '/saved'
     | '/setup'
@@ -129,7 +119,6 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/discover'
     | '/fridge'
-    | '/login'
     | '/onboarding'
     | '/saved'
     | '/setup'
@@ -141,7 +130,6 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/discover'
     | '/fridge'
-    | '/login'
     | '/onboarding'
     | '/saved'
     | '/setup'
@@ -154,7 +142,6 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   DiscoverRoute: typeof DiscoverRoute
   FridgeRoute: typeof FridgeRoute
-  LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
   SavedRoute: typeof SavedRoute
   SetupRoute: typeof SetupRoute
@@ -204,13 +191,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FridgeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/onboarding': {
       id: '/onboarding'
       path: '/onboarding'
@@ -242,7 +222,6 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   DiscoverRoute: DiscoverRoute,
   FridgeRoute: FridgeRoute,
-  LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
   SavedRoute: SavedRoute,
   SetupRoute: SetupRoute,

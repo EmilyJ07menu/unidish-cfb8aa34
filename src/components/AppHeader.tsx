@@ -13,7 +13,24 @@ const links = [
 ] as const;
 
 export function AppHeader() {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
+  const initial = (user?.user_metadata?.["username"] ?? user?.email ?? "?")
+    .toString()
+    .charAt(0)
+    .toUpperCase();
+
   return (
+
     <header className="border-b border-border bg-background">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-6 py-4">
         <Link to="/" className="font-display text-2xl font-bold tracking-tight text-primary">

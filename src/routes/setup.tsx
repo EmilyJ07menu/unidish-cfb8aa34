@@ -16,8 +16,24 @@ export const Route = createFileRoute("/setup")({
 });
 
 function Setup() {
-  const [username, setUsername] = useState("Ej2007");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
+  const { session } = useAuth();
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    if (session) {
+      const { error } = await supabase
+        .from("profiles")
+        .upsert({ id: session.user.id, username });
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+    }
+    navigate({ to: "/onboarding" });
+  }
+
 
   return (
     <div className="min-h-screen">

@@ -53,17 +53,37 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
-            to="/setup"
-            className="flex size-9 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground"
-          >
-            E
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to="/onboarding"
+                title="Dietary preferences"
+                className="flex size-9 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground"
+              >
+                {initial}
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted"
+              >
+                <LogOut className="size-4" />
+                Log out
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/auth"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted"
+            >
+              Sign in
+            </Link>
+          )}
           <button className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90">
             <Plus className="size-4" />
             Share
           </button>
         </div>
+
       </div>
     </header>
   );

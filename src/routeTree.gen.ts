@@ -10,17 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BudgetRouteImport } from './routes/budget'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as FridgeRouteImport } from './routes/fridge'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SetupRouteImport } from './routes/setup'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BudgetRoute = BudgetRouteImport.update({
@@ -48,6 +55,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -61,32 +73,38 @@ const SetupRoute = SetupRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/budget': typeof BudgetRoute
   '/calendar': typeof CalendarRoute
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
   '/setup': typeof SetupRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/budget': typeof BudgetRoute
   '/calendar': typeof CalendarRoute
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
   '/setup': typeof SetupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/budget': typeof BudgetRoute
   '/calendar': typeof CalendarRoute
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
   '/setup': typeof SetupRoute
 }
@@ -94,42 +112,50 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/budget'
     | '/calendar'
     | '/discover'
     | '/fridge'
     | '/login'
+    | '/onboarding'
     | '/saved'
     | '/setup'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/budget'
     | '/calendar'
     | '/discover'
     | '/fridge'
     | '/login'
+    | '/onboarding'
     | '/saved'
     | '/setup'
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/budget'
     | '/calendar'
     | '/discover'
     | '/fridge'
     | '/login'
+    | '/onboarding'
     | '/saved'
     | '/setup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   BudgetRoute: typeof BudgetRoute
   CalendarRoute: typeof CalendarRoute
   DiscoverRoute: typeof DiscoverRoute
   FridgeRoute: typeof FridgeRoute
   LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRoute
   SavedRoute: typeof SavedRoute
   SetupRoute: typeof SetupRoute
 }
@@ -141,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/budget': {
@@ -178,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -197,11 +237,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   BudgetRoute: BudgetRoute,
   CalendarRoute: CalendarRoute,
   DiscoverRoute: DiscoverRoute,
   FridgeRoute: FridgeRoute,
   LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRoute,
   SavedRoute: SavedRoute,
   SetupRoute: SetupRoute,
 }

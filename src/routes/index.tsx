@@ -71,9 +71,11 @@ function Feed() {
 
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((r) => (
-            <article
+            <Link
               key={r.id}
-              className="overflow-hidden rounded-2xl border border-border bg-card"
+              to="/recipe/$id"
+              params={{ id: r.id }}
+              className="overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-md"
             >
               <img
                 src={r.image}
@@ -109,8 +111,9 @@ function Feed() {
                 </div>
                 <p className="mt-4 text-sm text-muted-foreground">by {r.author}</p>
               </div>
-            </article>
+            </Link>
           ))}
+
         </div>
       </main>
     </div>

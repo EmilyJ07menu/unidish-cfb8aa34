@@ -46,8 +46,13 @@ function RecipeNotFound() {
 }
 
 function RecipeDetail() {
-  const { recipe } = Route.useLoaderData();
+  const { id } = Route.useParams();
+  const { recipe: builtin } = Route.useLoaderData();
+  const { list: mine } = useUserRecipes();
   const { ids, toggle } = useSaved();
+  const recipe = builtin ?? mine.find((r) => r.id === id);
+
+  if (!recipe) return <RecipeNotFound />;
   const saved = ids.includes(recipe.id);
 
   return (
@@ -61,11 +66,9 @@ function RecipeDetail() {
           <ArrowLeft className="size-4" /> Back to feed
         </Link>
 
-        <img
+        <RecipeImage
           src={recipe.image}
           alt={recipe.title}
-          width={800}
-          height={600}
           className="mt-5 h-80 w-full rounded-3xl object-cover"
         />
 

@@ -64,7 +64,7 @@ function Fridge() {
   const [ingredients, setIngredients] = useState<string[]>([""]);
   const [matches, setMatches] = useState<Match[] | null>(null);
   const [scanning, setScanning] = useState(false);
-  const userRecipes = useUserRecipes();
+  const { list: userRecipes } = useUserRecipes();
   const identify = useServerFn(identifyIngredients);
 
   const all = [...userRecipes, ...baseRecipes];

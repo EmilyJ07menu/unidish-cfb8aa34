@@ -78,10 +78,13 @@ export function AppHeader() {
               Sign in
             </Link>
           )}
-          <button className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90">
+          <Link
+            to="/share"
+            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+          >
             <Plus className="size-4" />
             Share
-          </button>
+          </Link>
         </div>
 
       </div>

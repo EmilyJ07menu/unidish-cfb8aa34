@@ -25,7 +25,8 @@ export const Route = createFileRoute("/")({
 
 function Feed() {
   const [query, setQuery] = useState("");
-  const list = recipes.filter(
+  const { list: mine } = useUserRecipes();
+  const list = [...mine, ...recipes].filter(
     (r) =>
       r.title.toLowerCase().includes(query.toLowerCase()) ||
       r.tags.some((t) => t.includes(query.toLowerCase())),

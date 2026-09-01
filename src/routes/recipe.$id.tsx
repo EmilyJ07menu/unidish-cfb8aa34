@@ -1,18 +1,18 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Clock, Users, Heart, ArrowLeft } from "lucide-react";
 import { AppHeader } from "@/components/AppHeader";
+import { RecipeImage } from "@/components/RecipeImage";
 import { getRecipe } from "@/lib/recipes";
 import { useSaved } from "@/lib/useSaved";
+import { useUserRecipes } from "@/lib/useUserRecipes";
 
 export const Route = createFileRoute("/recipe/$id")({
-  loader: ({ params }) => {
-    const recipe = getRecipe(params.id);
-    if (!recipe) throw notFound();
-    return { recipe };
-  },
+  loader: ({ params }) => ({ recipe: getRecipe(params.id) ?? null }),
   head: ({ loaderData }) => {
-    if (!loaderData) {
-      return { meta: [{ title: "Recipe not found — UniDISH" }, { name: "robots", content: "noindex" }] };
+    if (!loaderData?.recipe) {
+      return {
+        meta: [{ title: "Recipe — UniDISH" }, { name: "robots", content: "noindex" }],
+      };
     }
     const { recipe } = loaderData;
     const title = `${recipe.title} — UniDISH`;

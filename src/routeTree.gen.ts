@@ -17,6 +17,7 @@ import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as FridgeRouteImport } from './routes/fridge'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SetupRouteImport } from './routes/setup'
 import { Route as ShareRouteImport } from './routes/share'
 import { Route as ProfileUserIdRouteImport } from './routes/profile.$userId'
@@ -62,6 +63,11 @@ const SavedRoute = SavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SetupRoute = SetupRouteImport.update({
   id: '/setup',
   path: '/setup',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/fridge': typeof FridgeRoute
   '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
   '/share': typeof ShareRoute
   '/profile/$userId': typeof ProfileUserIdRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/fridge': typeof FridgeRoute
   '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
   '/share': typeof ShareRoute
   '/profile/$userId': typeof ProfileUserIdRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/fridge': typeof FridgeRoute
   '/onboarding': typeof OnboardingRoute
   '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
   '/share': typeof ShareRoute
   '/profile/$userId': typeof ProfileUserIdRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/fridge'
     | '/onboarding'
     | '/saved'
+    | '/settings'
     | '/setup'
     | '/share'
     | '/profile/$userId'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/fridge'
     | '/onboarding'
     | '/saved'
+    | '/settings'
     | '/setup'
     | '/share'
     | '/profile/$userId'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/fridge'
     | '/onboarding'
     | '/saved'
+    | '/settings'
     | '/setup'
     | '/share'
     | '/profile/$userId'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   FridgeRoute: typeof FridgeRoute
   OnboardingRoute: typeof OnboardingRoute
   SavedRoute: typeof SavedRoute
+  SettingsRoute: typeof SettingsRoute
   SetupRoute: typeof SetupRoute
   ShareRoute: typeof ShareRoute
   ProfileUserIdRoute: typeof ProfileUserIdRoute
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/setup': {
       id: '/setup'
       path: '/setup'
@@ -284,6 +304,7 @@ const rootRouteChildren: RootRouteChildren = {
   FridgeRoute: FridgeRoute,
   OnboardingRoute: OnboardingRoute,
   SavedRoute: SavedRoute,
+  SettingsRoute: SettingsRoute,
   SetupRoute: SetupRoute,
   ShareRoute: ShareRoute,
   ProfileUserIdRoute: ProfileUserIdRoute,

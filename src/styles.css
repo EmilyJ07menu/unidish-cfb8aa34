@@ -192,3 +192,7 @@
   color: var(--tag-foreground);
 }
 
+
+body {
+  padding-bottom: 5.5rem;
+}

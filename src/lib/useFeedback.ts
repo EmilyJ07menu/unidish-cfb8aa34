@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./useAuth";
+import { useAuth } from "@/hooks/useAuth";
 
 export interface RecipeFeedback {
   id: string;
@@ -10,26 +9,55 @@ export interface RecipeFeedback {
   created_at: string;
 }
 
+// Lazy load supabase to avoid blocking
+let supabase: any = null;
+let supabaseLoaded = false;
+
+const getSupabase = async () => {
+  if (supabaseLoaded) return supabase;
+  try {
+    const module = await import("@/integrations/supabase/client");
+    supabase = module.supabase;
+    supabaseLoaded = true;
+    return supabase;
+  } catch (error) {
+    console.warn("Supabase not available:", error);
+    supabaseLoaded = true;
+    return null;
+  }
+}
+
 export function useFeedback() {
   const { user } = useAuth();
   const [feedback, setFeedback] = useState<Map<string, RecipeFeedback>>(new Map());
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Load all feedback for the user
   useEffect(() => {
     if (!user) {
-      setLoading(false);
       return;
     }
 
     const loadFeedback = async () => {
       try {
-        const { data, error } = await supabase
+        setLoading(true);
+        const sb = await getSupabase();
+        
+        if (!sb) {
+          setLoading(false);
+          return;
+        }
+
+        const { data, error } = await sb
           .from("recipe_feedback")
           .select("*")
           .eq("user_id", user.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error("Error loading feedback:", error);
+          setLoading(false);
+          return;
+        }
 
         const map = new Map<string, RecipeFeedback>();
         if (data) {
@@ -38,9 +66,9 @@ export function useFeedback() {
           });
         }
         setFeedback(map);
+        setLoading(false);
       } catch (error) {
         console.error("Error loading feedback:", error);
-      } finally {
         setLoading(false);
       }
     };
@@ -53,7 +81,10 @@ export function useFeedback() {
       if (!user) return;
 
       try {
-        const { error } = await supabase.from("recipe_feedback").upsert(
+        const sb = await getSupabase();
+        if (!sb) return;
+
+        const { error } = await sb.from("recipe_feedback").upsert(
           {
             user_id: user.id,
             recipe_id: recipeId,
@@ -65,7 +96,10 @@ export function useFeedback() {
           }
         );
 
-        if (error) throw error;
+        if (error) {
+          console.error("Error saving feedback:", error);
+          return;
+        }
 
         // Update local state
         const newFeedback = new Map(feedback);

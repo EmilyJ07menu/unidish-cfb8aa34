@@ -72,9 +72,18 @@ function SharePage() {
         .map((l) => l.trim())
         .filter(Boolean);
 
-    if (!title.trim()) return toast.error("Give your recipe a title.");
-    if (lines(ingredients).length === 0) return toast.error("Add at least one ingredient.");
-    if (lines(steps).length === 0) return toast.error("Add at least one method step.");
+    if (!title.trim()) {
+      toast.error("Give your recipe a title.");
+      return;
+    }
+    if (lines(ingredients).length === 0) {
+      toast.error("Add at least one ingredient.");
+      return;
+    }
+    if (lines(steps).length === 0) {
+      toast.error("Add at least one method step.");
+      return;
+    }
 
     setSaving(true);
     try {

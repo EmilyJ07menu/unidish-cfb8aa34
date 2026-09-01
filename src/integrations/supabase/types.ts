@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      friendships: {
+        Row: {
+          created_at: string
+          follower_id: string
+          following_id: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          follower_id: string
+          following_id: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          follower_id?: string
+          following_id?: string
+          id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           allergies: string[]
@@ -50,6 +71,45 @@ export type Database = {
           onboarded?: boolean
           updated_at?: string
           username?: string | null
+        }
+        Relationships: []
+      }
+      shared_recipes: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image: string | null
+          minutes: number | null
+          price: number | null
+          recipe_id: string
+          serves: number | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image?: string | null
+          minutes?: number | null
+          price?: number | null
+          recipe_id: string
+          serves?: number | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image?: string | null
+          minutes?: number | null
+          price?: number | null
+          recipe_id?: string
+          serves?: number | null
+          title?: string
+          user_id?: string
         }
         Relationships: []
       }

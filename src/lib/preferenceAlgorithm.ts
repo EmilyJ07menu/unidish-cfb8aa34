@@ -14,10 +14,10 @@ export interface RecipeData {
  * Sorts recipes based on user feedback history
  * Learns from likes/dislikes to surface better recommendations
  */
-export function sortRecipesByPreferences(
-  recipes: RecipeData[],
+export function sortRecipesByPreferences<T extends RecipeData>(
+  recipes: T[],
   feedbackMap: Map<string, RecipeFeedback>
-): RecipeData[] {
+): T[] {
   if (feedbackMap.size === 0) {
     // No feedback yet, return as-is
     return recipes;

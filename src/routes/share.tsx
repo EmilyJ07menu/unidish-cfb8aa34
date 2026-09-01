@@ -55,7 +55,7 @@ function SharePage() {
   const [image, setImage] = useState("");
   const [saving, setSaving] = useState(false);
 
-  async function handleImage(file: File | undefined) {
+  async function handleImage(file: File | undefined): Promise<void> {
     if (!file) return;
     try {
       setImage(await toDataUrl(file));
@@ -64,7 +64,7 @@ function SharePage() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent): Promise<void> {
     e.preventDefault();
     const lines = (s: string) =>
       s
@@ -72,9 +72,18 @@ function SharePage() {
         .map((l) => l.trim())
         .filter(Boolean);
 
-    if (!title.trim()) return toast.error("Give your recipe a title.");
-    if (lines(ingredients).length === 0) return toast.error("Add at least one ingredient.");
-    if (lines(steps).length === 0) return toast.error("Add at least one method step.");
+    if (!title.trim()) {
+      toast.error("Give your recipe a title.");
+      return;
+    }
+    if (lines(ingredients).length === 0) {
+      toast.error("Add at least one ingredient.");
+      return;
+    }
+    if (lines(steps).length === 0) {
+      toast.error("Add at least one method step.");
+      return;
+    }
 
     setSaving(true);
     try {

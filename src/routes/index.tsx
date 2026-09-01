@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Search, Heart, Clock, Users, Sparkles, Refrigerator } from "lucide-react";
 import { AppHeader } from "@/components/AppHeader";
 import { recipes } from "@/lib/recipes";
+import { useUserRecipes } from "@/lib/useUserRecipes";
+import { RecipeImage } from "@/components/RecipeImage";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -78,12 +80,9 @@ function Feed() {
               params={{ id: r.id }}
               className="overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-md"
             >
-              <img
+              <RecipeImage
                 src={r.image}
                 alt={r.title}
-                width={800}
-                height={600}
-                loading="lazy"
                 className="h-52 w-full object-cover"
               />
               <div className="p-5">

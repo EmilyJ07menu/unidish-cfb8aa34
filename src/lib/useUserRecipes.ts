@@ -39,9 +39,11 @@ export function addUserRecipe(recipe: Recipe) {
 
 export function useUserRecipes() {
   const [list, setList] = useState<Recipe[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setList(readUserRecipes());
+    setLoaded(true);
     const listener = (next: Recipe[]) => setList(next);
     listeners.add(listener);
     return () => {
@@ -54,5 +56,5 @@ export function useUserRecipes() {
     write(readUserRecipes().filter((r) => r.id !== id));
   }, []);
 
-  return { list, add, remove };
+  return { list, loaded, add, remove };
 }

@@ -48,11 +48,11 @@ function RecipeNotFound() {
 function RecipeDetail() {
   const { id } = Route.useParams();
   const { recipe: builtin } = Route.useLoaderData();
-  const { list: mine } = useUserRecipes();
+  const { list: mine, loaded } = useUserRecipes();
   const { ids, toggle } = useSaved();
   const recipe = builtin ?? mine.find((r) => r.id === id);
 
-  if (!recipe) return <RecipeNotFound />;
+  if (!recipe) return loaded ? <RecipeNotFound /> : null;
   const saved = ids.includes(recipe.id);
 
   return (

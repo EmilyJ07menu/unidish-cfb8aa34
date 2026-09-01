@@ -55,7 +55,7 @@ function SharePage() {
   const [image, setImage] = useState("");
   const [saving, setSaving] = useState(false);
 
-  async function handleImage(file: File | undefined) {
+  async function handleImage(file: File | undefined): Promise<void> {
     if (!file) return;
     try {
       setImage(await toDataUrl(file));
@@ -64,7 +64,7 @@ function SharePage() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent): Promise<void> {
     e.preventDefault();
     const lines = (s: string) =>
       s

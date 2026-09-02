@@ -213,7 +213,11 @@ function ProfilePage() {
             )}
           </div>
         )}
+
+        {/* Followers / Following / Find people */}
+        <PeopleSection userId={userId} />
       </main>
+
     </div>
   );
 }

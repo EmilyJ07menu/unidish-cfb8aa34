@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Users, Heart, Utensils, UserPlus, UserCheck, Clock } from "lucide-react";
 import { AppHeader } from "@/components/AppHeader";
 import { RecipeImage } from "@/components/RecipeImage";
+import { PeopleSection } from "@/components/PeopleSection";
+
 import { useAuth } from "@/hooks/useAuth";
 import { useUserStats } from "@/lib/useUserStats";
 import { supabase } from "@/integrations/supabase/client";
@@ -213,7 +215,11 @@ function ProfilePage() {
             )}
           </div>
         )}
+
+        {/* Followers / Following / Find people */}
+        <PeopleSection userId={userId} />
       </main>
+
     </div>
   );
 }

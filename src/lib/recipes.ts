@@ -6,6 +6,26 @@ import chilli from "@/assets/chilli.jpg";
 import eggFriedRice from "@/assets/egg-fried-rice.jpg";
 import fajitas from "@/assets/fajitas.jpg";
 import tomatoSoup from "@/assets/tomato-soup.jpg";
+import tunaPastaBake from "@/assets/tuna-pasta-bake.jpg";
+import jacketPotatoBeans from "@/assets/jacket-potato-beans.jpg";
+import veggieChilli from "@/assets/veggie-chilli.jpg";
+import carbonara from "@/assets/carbonara.jpg";
+import chickpeaCurry from "@/assets/chickpea-curry.jpg";
+import shakshuka from "@/assets/shakshuka.jpg";
+import sweetPotatoSoup from "@/assets/sweet-potato-soup.jpg";
+import chickenRiceTraybake from "@/assets/chicken-rice-traybake.jpg";
+import mushroomRisotto from "@/assets/mushroom-risotto.jpg";
+import salmonNoodles from "@/assets/salmon-noodles.jpg";
+import halloumiWraps from "@/assets/halloumi-wraps.jpg";
+import sausageTrayRoast from "@/assets/sausage-tray-roast.jpg";
+import dalTarka from "@/assets/dal-tarka.jpg";
+import tomatoPasta from "@/assets/tomato-pasta.jpg";
+import chickenNoodleSoup from "@/assets/chicken-noodle-soup.jpg";
+import veggieBurritos from "@/assets/veggie-burritos.jpg";
+import omeletteCheese from "@/assets/omelette-cheese.jpg";
+import pestoGnocchi from "@/assets/pesto-gnocchi.jpg";
+import beefMinceHash from "@/assets/beef-mince-hash.jpg";
+import porridgeBanana from "@/assets/porridge-banana.jpg";
 
 export type Recipe = {
   id: string;
@@ -284,7 +304,7 @@ export const recipes: Recipe[] = [
     tags: ["batch-cook", "budget", "pescatarian"],
     author: "Priya",
     likes: 21,
-    image: sausagePasta,
+    image: tunaPastaBake,
     ingredients: [
       "300g pasta (penne or fusilli)",
       "2 x 145g tins tuna in spring water, drained",
@@ -315,7 +335,7 @@ export const recipes: Recipe[] = [
     tags: ["budget", "vegetarian", "batch-cook"],
     author: "Tom",
     likes: 9,
-    image: beansToast,
+    image: jacketPotatoBeans,
     ingredients: [
       "2 large baking potatoes",
       "1 tsp vegetable oil",
@@ -342,7 +362,7 @@ export const recipes: Recipe[] = [
     tags: ["vegan", "batch-cook", "budget"],
     author: "Sam",
     likes: 27,
-    image: chilli,
+    image: veggieChilli,
     ingredients: [
       "1 tbsp oil",
       "1 onion, diced",
@@ -375,7 +395,7 @@ export const recipes: Recipe[] = [
     tags: ["quick", "carnivore"],
     author: "Marco",
     likes: 34,
-    image: sausagePasta,
+    image: carbonara,
     ingredients: [
       "200g spaghetti",
       "100g smoked bacon lardons or pancetta",
@@ -402,7 +422,7 @@ export const recipes: Recipe[] = [
     tags: ["vegan", "quick", "budget"],
     author: "Aisha",
     likes: 30,
-    image: lentilCurry,
+    image: chickpeaCurry,
     ingredients: [
       "1 tbsp oil",
       "1 onion, sliced",
@@ -432,7 +452,7 @@ export const recipes: Recipe[] = [
     tags: ["vegetarian", "quick"],
     author: "Noor",
     likes: 25,
-    image: tomatoSoup,
+    image: shakshuka,
     ingredients: [
       "1 tbsp olive oil",
       "1 onion, sliced",
@@ -463,7 +483,7 @@ export const recipes: Recipe[] = [
     tags: ["vegan", "batch-cook", "budget"],
     author: "Jess",
     likes: 18,
-    image: tomatoSoup,
+    image: sweetPotatoSoup,
     ingredients: [
       "1 tbsp oil",
       "1 onion, chopped",
@@ -492,7 +512,7 @@ export const recipes: Recipe[] = [
     tags: ["carnivore", "batch-cook"],
     author: "Dan",
     likes: 22,
-    image: fajitas,
+    image: chickenRiceTraybake,
     ingredients: [
       "8 chicken thighs, bone-in",
       "300g long grain rice",
@@ -521,7 +541,7 @@ export const recipes: Recipe[] = [
     tags: ["vegetarian", "batch-cook"],
     author: "Marco",
     likes: 19,
-    image: eggFriedRice,
+    image: mushroomRisotto,
     ingredients: [
       "1 tbsp olive oil",
       "25g butter",
@@ -550,7 +570,7 @@ export const recipes: Recipe[] = [
     tags: ["pescatarian", "quick"],
     author: "Priya",
     likes: 24,
-    image: stirfry,
+    image: salmonNoodles,
     ingredients: [
       "2 salmon fillets",
       "2 tbsp soy sauce",
@@ -578,7 +598,7 @@ export const recipes: Recipe[] = [
     tags: ["vegetarian", "quick"],
     author: "Noor",
     likes: 26,
-    image: fajitas,
+    image: halloumiWraps,
     ingredients: [
       "225g halloumi, sliced",
       "4 tortilla wraps",
@@ -606,7 +626,7 @@ export const recipes: Recipe[] = [
     tags: ["carnivore", "batch-cook", "budget"],
     author: "Dan",
     likes: 17,
-    image: sausagePasta,
+    image: sausageTrayRoast,
     ingredients: [
       "8 pork sausages",
       "600g potatoes, cut into chunks",
@@ -633,7 +653,7 @@ export const recipes: Recipe[] = [
     tags: ["vegan", "budget", "batch-cook"],
     author: "Aisha",
     likes: 41,
-    image: lentilCurry,
+    image: dalTarka,
     ingredients: [
       "250g red lentils, rinsed",
       "800ml water",
@@ -662,7 +682,7 @@ export const recipes: Recipe[] = [
     tags: ["vegan", "budget", "quick"],
     author: "Jess",
     likes: 15,
-    image: sausagePasta,
+    image: tomatoPasta,
     ingredients: [
       "200g spaghetti",
       "2 tbsp olive oil",
@@ -688,7 +708,7 @@ export const recipes: Recipe[] = [
     tags: ["carnivore", "quick"],
     author: "Tom",
     likes: 13,
-    image: stirfry,
+    image: chickenNoodleSoup,
     ingredients: [
       "2 chicken breasts, sliced",
       "1 litre chicken stock",
@@ -716,7 +736,7 @@ export const recipes: Recipe[] = [
     tags: ["vegan", "batch-cook", "budget"],
     author: "Sam",
     likes: 20,
-    image: fajitas,
+    image: veggieBurritos,
     ingredients: [
       "8 tortilla wraps",
       "250g rice, cooked",
@@ -745,7 +765,7 @@ export const recipes: Recipe[] = [
     tags: ["vegetarian", "quick", "budget"],
     author: "Marco",
     likes: 11,
-    image: eggFriedRice,
+    image: omeletteCheese,
     ingredients: [
       "3 eggs",
       "1 tsp butter",
@@ -770,7 +790,7 @@ export const recipes: Recipe[] = [
     tags: ["vegetarian", "quick"],
     author: "Priya",
     likes: 28,
-    image: sausagePasta,
+    image: pestoGnocchi,
     ingredients: [
       "500g pack fresh gnocchi",
       "2 tbsp olive oil",
@@ -796,7 +816,7 @@ export const recipes: Recipe[] = [
     tags: ["carnivore", "budget"],
     author: "Dan",
     likes: 14,
-    image: chilli,
+    image: beefMinceHash,
     ingredients: [
       "400g beef mince",
       "500g potatoes, diced small",
@@ -825,7 +845,7 @@ export const recipes: Recipe[] = [
     tags: ["vegetarian", "budget", "quick"],
     author: "Jess",
     likes: 10,
-    image: beansToast,
+    image: porridgeBanana,
     ingredients: [
       "50g porridge oats",
       "250ml milk or water",

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Search, UserPlus, UserCheck, Users } from "lucide-react";
+import { UserPlus, UserCheck, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 type Person = { id: string; username: string | null; avatar_url: string | null };
 
-type Tab = "followers" | "following" | "find";
+export type PeopleTab = "followers" | "following";
 
-function Avatar({ name }: { name: string | null }) {
+export function PersonAvatar({ name }: { name: string | null }) {
   return (
     <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
       {name?.[0]?.toUpperCase() ?? "?"}
@@ -15,23 +15,17 @@ function Avatar({ name }: { name: string | null }) {
   );
 }
 
-export type PeopleTab = Tab;
-
 export function PeopleSection({
   userId,
   tab,
-  onTabChange,
   onCounts,
 }: {
   userId: string;
-  tab: Tab;
-  onTabChange: (tab: Tab) => void;
+  tab: PeopleTab | null;
   onCounts?: (counts: { followers: number; following: number }) => void;
 }) {
   const [followers, setFollowers] = useState<Person[]>([]);
   const [following, setFollowing] = useState<Person[]>([]);
-  const [results, setResults] = useState<Person[]>([]);
-  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [myFollowing, setMyFollowing] = useState<Set<string>>(new Set());
@@ -72,7 +66,6 @@ export function PeopleSection({
     void loadLists();
   }, [loadLists]);
 
-  // Who the signed-in user already follows (to render the right button state)
   useEffect(() => {
     if (!currentUserId) return;
     supabase
@@ -81,27 +74,6 @@ export function PeopleSection({
       .eq("follower_id", currentUserId)
       .then(({ data }) => setMyFollowing(new Set((data ?? []).map((r) => r.following_id))));
   }, [currentUserId, followers, following]);
-
-  // Search people
-  useEffect(() => {
-    if (tab !== "find") return;
-    let cancelled = false;
-    const t = setTimeout(async () => {
-      const { data, error } = await supabase.rpc("search_profiles", {
-        _query: query.trim(),
-        _limit: 20,
-      });
-      if (error) {
-        console.error("Error searching people:", error);
-        return;
-      }
-      if (!cancelled) setResults((data ?? []) as Person[]);
-    }, 250);
-    return () => {
-      cancelled = true;
-      clearTimeout(t);
-    };
-  }, [tab, query]);
 
   const toggleFollow = async (id: string) => {
     if (!currentUserId || id === currentUserId) return;
@@ -122,48 +94,16 @@ export function PeopleSection({
     void loadLists();
   };
 
-  const list = tab === "followers" ? followers : tab === "following" ? following : results;
+  if (!tab) return null;
 
-  const tabs: { key: Tab; label: string }[] = [
-    { key: "followers", label: `Followers ${followers.length}` },
-    { key: "following", label: `Following ${following.length}` },
-    ...(tab === "find" ? [{ key: "find" as Tab, label: "Find people" }] : []),
-  ];
+  const list = tab === "followers" ? followers : following;
 
   return (
-    <section id="people" className="mt-12 scroll-mt-24">
-      <h2 className="text-3xl font-bold">People</h2>
-
-      <div className="mt-4 flex flex-wrap gap-2">
-        {tabs.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => onTabChange(t.key)}
-            className={
-              tab === t.key
-                ? "rounded-full border-2 border-primary bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-                : "rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted"
-            }
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-
-      {tab === "find" && (
-        <div className="mt-4 flex items-center gap-2 rounded-full border border-border bg-card px-4 py-3">
-          <Search className="size-4 text-muted-foreground" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by username"
-            className="w-full bg-transparent text-sm outline-none"
-          />
-        </div>
-      )}
+    <section id="people" className="mt-10 scroll-mt-24">
+      <h2 className="text-2xl font-bold">{tab === "followers" ? "Followers" : "Following"}</h2>
 
       <div className="mt-4 space-y-3">
-        {loading && tab !== "find" ? (
+        {loading ? (
           <div className="h-16 animate-pulse rounded-2xl bg-muted" />
         ) : list.length === 0 ? (
           <div className="rounded-2xl border border-border bg-card p-8 text-center">
@@ -171,11 +111,7 @@ export function PeopleSection({
             <p className="mt-3 text-muted-foreground">
               {tab === "followers"
                 ? "No followers yet."
-                : tab === "following"
-                  ? "Not following anyone yet — try Find people."
-                  : query
-                    ? "No one found with that username."
-                    : "Start typing to find other cooks."}
+                : "Not following anyone yet — try Find people."}
             </p>
           </div>
         ) : (
@@ -189,7 +125,7 @@ export function PeopleSection({
                 params={{ userId: person.id }}
                 className="flex flex-1 items-center gap-3"
               >
-                <Avatar name={person.username} />
+                <PersonAvatar name={person.username} />
                 <span className="font-semibold">{person.username ?? "Unnamed cook"}</span>
               </Link>
               {currentUserId && person.id !== currentUserId && (

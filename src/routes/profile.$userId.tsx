@@ -39,11 +39,11 @@ function ProfilePage() {
   const { stats, loading, toggleFollow } = useUserStats(userId);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
-  const [peopleTab, setPeopleTab] = useState<PeopleTab>("followers");
+  const [peopleTab, setPeopleTab] = useState<PeopleTab | null>(null);
   const [counts, setCounts] = useState({ followers: 0, following: 0 });
 
   const showPeople = useCallback((tab: PeopleTab) => {
-    setPeopleTab(tab);
+    setPeopleTab((prev) => (prev === tab ? null : tab));
     requestAnimationFrame(() => {
       document.getElementById("people")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -106,14 +106,20 @@ function ProfilePage() {
 
             {/* Stats */}
             <div className="mt-6 flex flex-wrap items-end gap-6">
-              <button onClick={() => showPeople("followers")} className="flex flex-col text-left">
+              <button
+                onClick={() => showPeople("followers")}
+                className={`flex flex-col rounded-2xl px-3 py-2 text-left transition-colors ${peopleTab === "followers" ? "bg-muted" : "hover:bg-muted"}`}
+              >
                 <span className="text-sm text-muted-foreground">Followers</span>
                 <span className="flex items-center gap-2 text-2xl font-bold">
                   <Users className="size-5" />
                   {counts.followers}
                 </span>
               </button>
-              <button onClick={() => showPeople("following")} className="flex flex-col text-left">
+              <button
+                onClick={() => showPeople("following")}
+                className={`flex flex-col rounded-2xl px-3 py-2 text-left transition-colors ${peopleTab === "following" ? "bg-muted" : "hover:bg-muted"}`}
+              >
                 <span className="text-sm text-muted-foreground">Following</span>
                 <span className="flex items-center gap-2 text-2xl font-bold">
                   <UserCheck className="size-5" />
@@ -127,12 +133,12 @@ function ProfilePage() {
                   {stats?.sharedRecipeCount ?? 0}
                 </span>
               </div>
-              <button
-                onClick={() => showPeople("find")}
+              <Link
+                to="/people"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold hover:bg-muted"
               >
                 <Search className="size-4" /> Find people
-              </button>
+              </Link>
             </div>
 
             {/* Follow Button */}
@@ -239,7 +245,7 @@ function ProfilePage() {
         )}
 
         {/* Followers / Following / Find people */}
-        <PeopleSection userId={userId} tab={peopleTab} onTabChange={setPeopleTab} onCounts={setCounts} />
+        <PeopleSection userId={userId} tab={peopleTab} onCounts={setCounts} />
       </main>
 
     </div>

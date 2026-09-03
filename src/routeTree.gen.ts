@@ -16,6 +16,7 @@ import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as FridgeRouteImport } from './routes/fridge'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as PeopleRouteImport } from './routes/people'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SetupRouteImport } from './routes/setup'
@@ -58,6 +59,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeopleRoute = PeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -97,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
   '/onboarding': typeof OnboardingRoute
+  '/people': typeof PeopleRoute
   '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
   '/onboarding': typeof OnboardingRoute
+  '/people': typeof PeopleRoute
   '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/discover': typeof DiscoverRoute
   '/fridge': typeof FridgeRoute
   '/onboarding': typeof OnboardingRoute
+  '/people': typeof PeopleRoute
   '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/setup': typeof SetupRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/discover'
     | '/fridge'
     | '/onboarding'
+    | '/people'
     | '/saved'
     | '/settings'
     | '/setup'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/discover'
     | '/fridge'
     | '/onboarding'
+    | '/people'
     | '/saved'
     | '/settings'
     | '/setup'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/discover'
     | '/fridge'
     | '/onboarding'
+    | '/people'
     | '/saved'
     | '/settings'
     | '/setup'
@@ -191,6 +203,7 @@ export interface RootRouteChildren {
   DiscoverRoute: typeof DiscoverRoute
   FridgeRoute: typeof FridgeRoute
   OnboardingRoute: typeof OnboardingRoute
+  PeopleRoute: typeof PeopleRoute
   SavedRoute: typeof SavedRoute
   SettingsRoute: typeof SettingsRoute
   SetupRoute: typeof SetupRoute
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/people': {
+      id: '/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof PeopleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -303,6 +323,7 @@ const rootRouteChildren: RootRouteChildren = {
   DiscoverRoute: DiscoverRoute,
   FridgeRoute: FridgeRoute,
   OnboardingRoute: OnboardingRoute,
+  PeopleRoute: PeopleRoute,
   SavedRoute: SavedRoute,
   SettingsRoute: SettingsRoute,
   SetupRoute: SetupRoute,

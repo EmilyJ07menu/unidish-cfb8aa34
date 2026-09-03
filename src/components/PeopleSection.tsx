@@ -15,8 +15,19 @@ function Avatar({ name }: { name: string | null }) {
   );
 }
 
-export function PeopleSection({ userId }: { userId: string }) {
-  const [tab, setTab] = useState<Tab>("followers");
+export type PeopleTab = Tab;
+
+export function PeopleSection({
+  userId,
+  tab,
+  onTabChange,
+  onCounts,
+}: {
+  userId: string;
+  tab: Tab;
+  onTabChange: (tab: Tab) => void;
+  onCounts?: (counts: { followers: number; following: number }) => void;
+}) {
   const [followers, setFollowers] = useState<Person[]>([]);
   const [following, setFollowing] = useState<Person[]>([]);
   const [results, setResults] = useState<Person[]>([]);
@@ -49,12 +60,13 @@ export function PeopleSection({ userId }: { userId: string }) {
       ]);
       setFollowers(a);
       setFollowing(b);
+      onCounts?.({ followers: a.length, following: b.length });
     } catch (error) {
       console.error("Error loading people:", error);
     } finally {
       setLoading(false);
     }
-  }, [userId, hydrate]);
+  }, [userId, hydrate, onCounts]);
 
   useEffect(() => {
     void loadLists();
@@ -115,18 +127,18 @@ export function PeopleSection({ userId }: { userId: string }) {
   const tabs: { key: Tab; label: string }[] = [
     { key: "followers", label: `Followers ${followers.length}` },
     { key: "following", label: `Following ${following.length}` },
-    { key: "find", label: "Find people" },
+    ...(tab === "find" ? [{ key: "find" as Tab, label: "Find people" }] : []),
   ];
 
   return (
-    <section className="mt-12">
+    <section id="people" className="mt-12 scroll-mt-24">
       <h2 className="text-3xl font-bold">People</h2>
 
       <div className="mt-4 flex flex-wrap gap-2">
         {tabs.map((t) => (
           <button
             key={t.key}
-            onClick={() => setTab(t.key)}
+            onClick={() => onTabChange(t.key)}
             className={
               tab === t.key
                 ? "rounded-full border-2 border-primary bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"

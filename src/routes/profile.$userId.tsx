@@ -1,9 +1,9 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Users, Heart, Utensils, UserPlus, UserCheck, Clock } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { Users, Utensils, UserPlus, UserCheck, Clock, Search } from "lucide-react";
 import { AppHeader } from "@/components/AppHeader";
 import { RecipeImage } from "@/components/RecipeImage";
-import { PeopleSection } from "@/components/PeopleSection";
+import { PeopleSection, type PeopleTab } from "@/components/PeopleSection";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useUserStats } from "@/lib/useUserStats";
@@ -39,6 +39,15 @@ function ProfilePage() {
   const { stats, loading, toggleFollow } = useUserStats(userId);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
+  const [peopleTab, setPeopleTab] = useState<PeopleTab>("followers");
+  const [counts, setCounts] = useState({ followers: 0, following: 0 });
+
+  const showPeople = useCallback((tab: PeopleTab) => {
+    setPeopleTab(tab);
+    requestAnimationFrame(() => {
+      document.getElementById("people")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
 
   // Load user profile
   useEffect(() => {
@@ -96,21 +105,34 @@ function ProfilePage() {
             <h1 className="text-4xl font-bold">{profile?.username ?? "Unknown User"}</h1>
 
             {/* Stats */}
-            <div className="mt-6 flex flex-wrap gap-6">
-              <div className="flex flex-col">
-                <span className="text-sm text-muted-foreground">Friends</span>
-                <span className="text-2xl font-bold flex items-center gap-2">
+            <div className="mt-6 flex flex-wrap items-end gap-6">
+              <button onClick={() => showPeople("followers")} className="flex flex-col text-left">
+                <span className="text-sm text-muted-foreground">Followers</span>
+                <span className="flex items-center gap-2 text-2xl font-bold">
                   <Users className="size-5" />
-                  {stats?.friendCount ?? 0}
+                  {counts.followers}
                 </span>
-              </div>
+              </button>
+              <button onClick={() => showPeople("following")} className="flex flex-col text-left">
+                <span className="text-sm text-muted-foreground">Following</span>
+                <span className="flex items-center gap-2 text-2xl font-bold">
+                  <UserCheck className="size-5" />
+                  {counts.following}
+                </span>
+              </button>
               <div className="flex flex-col">
                 <span className="text-sm text-muted-foreground">Recipes Shared</span>
-                <span className="text-2xl font-bold flex items-center gap-2">
+                <span className="flex items-center gap-2 text-2xl font-bold">
                   <Utensils className="size-5" />
                   {stats?.sharedRecipeCount ?? 0}
                 </span>
               </div>
+              <button
+                onClick={() => showPeople("find")}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold hover:bg-muted"
+              >
+                <Search className="size-4" /> Find people
+              </button>
             </div>
 
             {/* Follow Button */}
@@ -217,7 +239,7 @@ function ProfilePage() {
         )}
 
         {/* Followers / Following / Find people */}
-        <PeopleSection userId={userId} />
+        <PeopleSection userId={userId} tab={peopleTab} onTabChange={setPeopleTab} onCounts={setCounts} />
       </main>
 
     </div>

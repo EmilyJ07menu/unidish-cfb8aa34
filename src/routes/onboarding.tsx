@@ -199,7 +199,7 @@ function Onboarding() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full rounded-xl bg-accent py-4 font-semibold text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+            className="w-full rounded-xl bg-primary py-4 font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
           >
             {busy ? "Saving…" : "Save and start cooking"}
           </button>

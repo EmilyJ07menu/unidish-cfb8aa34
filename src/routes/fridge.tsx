@@ -64,8 +64,11 @@ function Fridge() {
   const [ingredients, setIngredients] = useState<string[]>([""]);
   const [matches, setMatches] = useState<Match[] | null>(null);
   const [scanning, setScanning] = useState(false);
+  const [ideas, setIdeas] = useState<AiMealIdea[] | null>(null);
+  const [thinking, setThinking] = useState(false);
   const { list: userRecipes } = useUserRecipes();
   const identify = useServerFn(identifyIngredients);
+  const invent = useServerFn(inventMeals);
 
   const all = [...userRecipes, ...baseRecipes];
 

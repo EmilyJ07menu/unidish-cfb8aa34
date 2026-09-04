@@ -111,7 +111,7 @@ function Fridge() {
     }
   }
 
-  function suggest() {
+  async function suggest(): Promise<void> {
     const have = ingredients.map((v) => v.trim()).filter(Boolean);
     if (have.length === 0) {
       toast.error("Add at least one ingredient first.");
@@ -119,7 +119,20 @@ function Fridge() {
     }
     const found = matchRecipes(all, have);
     setMatches(found);
-    if (found.length === 0) toast.error("No matches yet — try adding a couple more ingredients.");
+
+    setThinking(true);
+    setIdeas(null);
+    try {
+      const result = await invent({ data: { ingredients: have.slice(0, 30) } });
+      setIdeas(result.ideas);
+      if (result.ideas.length === 0 && found.length === 0) {
+        toast.error("Couldn't think of anything — try adding a couple more ingredients.");
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "AI ideas failed. Try again.");
+    } finally {
+      setThinking(false);
+    }
   }
 
   return (

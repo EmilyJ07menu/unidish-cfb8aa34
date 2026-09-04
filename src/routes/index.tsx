@@ -38,25 +38,27 @@ function Feed() {
     <div className="min-h-screen">
       <AppHeader />
       <main className="mx-auto max-w-7xl px-6 py-8">
-        <section className="rounded-2xl bg-primary px-8 py-10 text-primary-foreground">
-          <h1 className="text-4xl">Cook smart, spend less</h1>
-          <p className="mt-3 max-w-3xl text-lg opacity-95">
+        <section className="rounded-2xl bg-primary px-6 py-6 text-primary-foreground">
+          <h1 className="text-2xl sm:text-3xl">Cook smart, spend less</h1>
+          <p className="mt-2 max-w-2xl text-sm sm:text-base opacity-95">
             Discover budget-friendly recipes shared by students, plan your week, and turn your
             fridge into dinner.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-2">
+
             <Link
               to="/budget"
-              className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2.5 font-semibold transition-colors hover:bg-white/30"
+              className="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/30"
             >
               <Sparkles className="size-4" /> Plan by budget
             </Link>
             <Link
               to="/fridge"
-              className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2.5 font-semibold transition-colors hover:bg-white/30"
+              className="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/30"
             >
               <Refrigerator className="size-4" /> Scan my fridge
             </Link>
+
           </div>
         </section>
 

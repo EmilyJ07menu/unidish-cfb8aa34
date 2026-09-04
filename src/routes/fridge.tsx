@@ -189,11 +189,75 @@ function Fridge() {
 
           <button
             onClick={suggest}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+            disabled={thinking}
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
           >
-            <Sparkles className="size-5" /> Suggest recipes
+            {thinking ? <Loader2 className="size-5 animate-spin" /> : <Sparkles className="size-5" />}
+            {thinking ? "Thinking up meals…" : "Suggest recipes"}
           </button>
         </section>
+
+        {(thinking || (ideas && ideas.length > 0)) && (
+          <section className="mt-8">
+            <h2 className="flex items-center gap-2 text-xl font-semibold">
+              <Sparkles className="size-5 text-accent" /> AI meal ideas
+            </h2>
+            <p className="mt-1 text-muted-foreground">
+              Invented for exactly what you have — not from our recipe library.
+            </p>
+
+            {thinking ? (
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                {[0, 1, 2].map((i) => (
+                  <div key={i} className="h-48 animate-pulse rounded-2xl border border-border bg-muted" />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                {ideas?.map((idea) => (
+                  <article
+                    key={idea.title}
+                    className="rounded-2xl border border-border bg-card p-5"
+                  >
+                    <h3 className="font-semibold">{idea.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{idea.description}</p>
+                    <div className="mt-3 flex items-center gap-4 text-sm text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">
+                        <PoundSterling className="size-4" />
+                        {idea.price.toFixed(2)}
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="size-4" />
+                        {idea.minutes} min
+                      </span>
+                    </div>
+                    {idea.uses.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {idea.uses.map((u) => (
+                          <span key={u} className="tag-chip">
+                            {u}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {idea.missing.length > 0 && (
+                      <p className="mt-3 text-sm text-muted-foreground">
+                        You'll need: {idea.missing.join(", ")}
+                      </p>
+                    )}
+                    {idea.steps.length > 0 && (
+                      <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm">
+                        {idea.steps.map((s, i) => (
+                          <li key={i}>{s}</li>
+                        ))}
+                      </ol>
+                    )}
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
         {matches === null ? (
           <div className="mt-20 flex flex-col items-center text-center">

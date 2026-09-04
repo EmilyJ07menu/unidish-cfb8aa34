@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AppHeader } from "@/components/AppHeader";
 import { recipes as baseRecipes, type Recipe } from "@/lib/recipes";
 import { useUserRecipes } from "@/lib/useUserRecipes";
-import { identifyIngredients } from "@/lib/fridge.functions";
+import { identifyIngredients, inventMeals, type AiMealIdea } from "@/lib/fridge.functions";
 
 export const Route = createFileRoute("/fridge")({
   head: () => ({

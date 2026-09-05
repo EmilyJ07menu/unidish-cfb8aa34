@@ -109,12 +109,20 @@ function AuthPage() {
               <UserIcon className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 id="username"
+                name="username"
+                type="text"
                 required
+                autoComplete="username"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                enterKeyHint="next"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Ej2007"
-                className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 outline-none focus:ring-2 focus:ring-ring"
+                className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 text-base outline-none focus:ring-2 focus:ring-ring"
               />
+
             </div>
           </>
         )}

@@ -161,13 +161,28 @@ function Fridge() {
             {ingredients.map((value, i) => (
               <div key={i} className="flex items-center gap-2">
                 <input
+                  type="text"
+                  name={`ingredient-${i + 1}`}
+                  autoComplete="off"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  enterKeyHint="done"
                   value={value}
-                  onChange={(e) =>
-                    setIngredients((prev) => prev.map((v, j) => (j === i ? e.target.value : v)))
-                  }
+                  onChange={(e) => {
+                    const next = e.target.value;
+                    setIngredients((prev) => prev.map((v, j) => (j === i ? next : v)));
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      e.currentTarget.blur();
+                    }
+                  }}
                   placeholder={`Ingredient ${i + 1}`}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base outline-none focus:ring-2 focus:ring-ring"
                 />
+
                 {ingredients.length > 1 && (
                   <button
                     onClick={() => setIngredients((prev) => prev.filter((_, j) => j !== i))}

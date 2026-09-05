@@ -186,7 +186,9 @@ function AuthPage() {
       <p className="mt-6 text-muted-foreground">
         {mode === "login" ? "Don't have an account? " : "Already have an account? "}
         <button
+          type="button"
           onClick={() => setMode(mode === "login" ? "signup" : "login")}
+
           className="font-medium text-primary"
         >
           {mode === "login" ? "Create one" : "Log in"}

@@ -109,12 +109,20 @@ function AuthPage() {
               <UserIcon className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 id="username"
+                name="username"
+                type="text"
                 required
+                autoComplete="username"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                enterKeyHint="next"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Ej2007"
-                className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 outline-none focus:ring-2 focus:ring-ring"
+                className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 text-base outline-none focus:ring-2 focus:ring-ring"
               />
+
             </div>
           </>
         )}
@@ -126,12 +134,19 @@ function AuthPage() {
           <Mail className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
             id="email"
+            name="email"
             type="email"
             required
+            inputMode="email"
+            autoComplete="email"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="next"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 outline-none focus:ring-2 focus:ring-ring"
+            className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 text-base outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
 
@@ -142,14 +157,21 @@ function AuthPage() {
           <Lock className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
             id="password"
+            name="password"
             type="password"
             required
             minLength={6}
+            autoComplete={mode === "signup" ? "new-password" : "current-password"}
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="go"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 outline-none focus:ring-2 focus:ring-ring"
+            className="w-full rounded-xl border border-border bg-background py-3 pl-11 pr-4 text-base outline-none focus:ring-2 focus:ring-ring"
           />
+
         </div>
 
         <button
@@ -164,7 +186,9 @@ function AuthPage() {
       <p className="mt-6 text-muted-foreground">
         {mode === "login" ? "Don't have an account? " : "Already have an account? "}
         <button
+          type="button"
           onClick={() => setMode(mode === "login" ? "signup" : "login")}
+
           className="font-medium text-primary"
         >
           {mode === "login" ? "Create one" : "Log in"}
